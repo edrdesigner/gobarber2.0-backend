@@ -1,9 +1,10 @@
-import path from 'path';
-import fs from 'fs';
+// import path from 'path';
+// import fs from 'fs';
 import { injectable, inject } from 'tsyringe';
 
-import uploadConfig from '@config/upload';
+// import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
@@ -17,6 +18,8 @@ class UpdateUserAvatarService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
@@ -27,17 +30,13 @@ class UpdateUserAvatarService {
     }
 
     if (user.avatar) {
-      // deletar avatar anterior
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userAvatarFileExits = await fs.promises.stat(userAvatarFilePath);
-
-      if (userAvatarFileExits) {
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.storageProvider.deleteFile(user.avatar);
     }
 
+    const filename = await this.storageProvider.saveFile(avatarFilename);
+
     // Atualiza o avatar do usuario encontrado
-    user.avatar = avatarFilename;
+    user.avatar = filename;
     await this.usersRepository.save(user);
 
     return user;
