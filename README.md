@@ -14,4 +14,18 @@
 
 **RN**
 - O link enviado por email para resetar a senha deve expirar em 2h;
-- O usuario precisa confirma a nova senha ao resetar sua senha;
+- O usuario precisa confirmar a nova senha ao resetar sua senha;
+
+# Atualização de perfil
+
+**RF**
+- O usuario deve poder atualizar seus dados (nome, email e senha)
+
+**RN**
+- O usuario não pode alterar seu e-mail para um e-mail ja utilizado;
+- Para atualizar sua senha o usuario deve informar a senha antiga;
+- Para atualizar sua senha o usuario precisa confirmar a nova senha;
+
+# Painal do prestador
+
+# Agendamento de serviços
