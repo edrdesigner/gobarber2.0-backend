@@ -26,6 +26,22 @@
 - Para atualizar sua senha o usuario deve informar a senha antiga;
 - Para atualizar sua senha o usuario precisa confirmar a nova senha;
 
-# Painal do prestador
+# Painel do prestador
 
 # Agendamento de serviços
+
+**RF**
+- O usuario deve poder listar todos prestadores de serviços
+- O usuario deve poder listar os dias de um mes com pelo menos um horario disponivel de um prestador
+- O usuario deve poder listsar horarios disponiveis em um dia especifico de um prestador
+- O usuario deve poder realizar um novo agendamento com um prestador
+
+**RNF**
+- A listagem de prestadores deve ser armazenada em cache.
+
+**RN**
+- Cada agendaento deve durar 1h exatamente
+- Os agendamentos devem poder estar dispo entre 8 as 18 (primeiro 8 e ultima as 17)
+- O usuario nao pode agendar um horario ocupado
+- O usuario nao pode agendar um horario que ja passou
+- O usuario nao pode agendar serviços consigo mesmo
