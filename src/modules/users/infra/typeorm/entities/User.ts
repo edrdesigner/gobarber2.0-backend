@@ -31,6 +31,7 @@ class User {
   created_at: Date;
 
   @UpdateDateColumn()
+  @Exclude()
   updated_at: Date;
 
   @Expose({ name: 'avatar_url' })
