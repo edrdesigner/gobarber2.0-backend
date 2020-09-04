@@ -6,12 +6,17 @@ import { classToClass } from 'class-transformer';
 export default class UserAvatarController {
   public async update(request: Request, response: Response): Promise<Response> {
     const updateUserAvatar = container.resolve(UpdateUserAvatarService);
+    try {
+      const user = await updateUserAvatar.execute({
+        user_id: request.user.id,
+        avatarFilename: request.file.filename,
+      });
 
-    const user = await updateUserAvatar.execute({
-      user_id: request.user.id,
-      avatarFilename: request.file.filename,
-    });
-
-    return response.json(classToClass(user));
+      return response.json(classToClass(user));
+    } catch (error) {
+      return response.json({
+        error: { message: 'Ocorreu um erro ao enviar seu avatar' },
+      });
+    }
   }
 }
